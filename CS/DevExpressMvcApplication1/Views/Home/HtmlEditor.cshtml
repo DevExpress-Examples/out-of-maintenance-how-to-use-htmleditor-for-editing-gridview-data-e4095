@@ -1,0 +1,14 @@
+@using DevExpressMvcApplication1.Models;
+@model Person
+@{ 
+    if (ViewData["DescriptionValue"] != null) {
+        Model.Description = ViewData["DescriptionValue"].ToString();
+    }
+}
+
+
+@Html.DevExpress().HtmlEditor(settings => {
+    settings.Name = "Description";
+    settings.CallbackRouteValues = new { Controller = "Home", Action = "HtmlEditorPartial", personID = Model.ID };
+    settings.Width = 550;
+}).Bind(Model.Description).GetHtml()
