@@ -1,0 +1,49 @@
+﻿@model System.Collections.IEnumerable
+
+@{		 
+	var grid = Html.DevExpress().GridView(
+			settings => {
+				settings.Name = "gvEditing";
+				settings.KeyFieldName = "EmployeeID";
+				settings.CallbackRouteValues = new { Controller = "Home", Action = "InlineEditingPartial" };
+				settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Home", Action = "InlineEditingAddNewPartial" };
+				settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Home", Action = "InlineEditingUpdatePartial" };
+				settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Home", Action = "InlineEditingDeletePartial" };
+				settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+				settings.SettingsBehavior.ConfirmDelete = true;
+
+				settings.CommandColumn.Visible = true;
+				settings.CommandColumn.NewButton.Visible = true;
+				settings.CommandColumn.DeleteButton.Visible = true;
+				settings.CommandColumn.EditButton.Visible = true;
+
+				settings.Columns.Add("LastName");
+				settings.Columns.Add("FirstName");
+				settings.Columns.Add("Title");
+				settings.Columns.Add("BirthDate");
+				settings.Columns.Add("HireDate");
+				settings.Columns.Add("Address");
+				settings.Columns.Add("HomePhone");
+				
+				settings.Columns.Add(column => {
+					column.FieldName = "Notes";
+					column.Caption = "Notes";
+					column.EditFormSettings.ColumnSpan = 2;
+					column.EditFormSettings.CaptionLocation = ASPxColumnCaptionLocation.Top;
+					column.ColumnType = MVCxGridViewColumnType.Memo;
+					column.SetEditItemTemplateContent(c => {
+						var dataObject = c.Grid.IsNewRowEditing ? new Employee() : c.Grid.GetRow(c.VisibleIndex);
+						Html.RenderPartial("HtmlEditor", dataObject);
+					});
+				});				
+
+				settings.PreRender = (sender, e) => {
+					((MVCxGridView)sender).StartEdit(1);
+				};
+			});
+
+	if (ViewData["EditError"] != null) {
+		grid.SetEditErrorText((string)ViewData["EditError"]);
+	}
+}
+@grid.Bind(Model).GetHtml()
