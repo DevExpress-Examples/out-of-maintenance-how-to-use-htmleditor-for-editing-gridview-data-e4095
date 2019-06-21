@@ -8,6 +8,9 @@
 * [Index.cshtml](./CS/DevExpressMvcApplication1/Views/Home/Index.cshtml)
 <!-- default file list end -->
 # How to use HtmlEditor for editing GridView data
+<!-- run online -->
+**[[Run Online]](https://codecentral.devexpress.com/e4095)**
+<!-- run online end -->
 
 
 <p>This example demonstrates how to use HtmlEditor to edit GridView row data</p>
