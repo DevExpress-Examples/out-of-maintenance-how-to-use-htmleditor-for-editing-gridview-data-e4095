@@ -9,7 +9,7 @@
 <!-- default file list end -->
 # How to use HtmlEditor for editing GridView data
 <!-- run online -->
-**[[Run Online]](https://codecentral.devexpress.com/e4095)**
+**[[Run Online]](https://codecentral.devexpress.com/e4095/)**
 <!-- run online end -->
 
 
